@@ -1,6 +1,8 @@
 package shoppingMall;
 
-public class Cooking {
+import java.io.Serializable;
+
+public class Cooking implements Serializable {
 	
 	private String cID;
 	private String cName;
@@ -9,6 +11,13 @@ public class Cooking {
 	private String cSpec;
 	private String warning;
 	private int tQty;
+	
+	public Cooking(String cID, String cName){
+		this.cID = cID;
+		this.cName = cName;
+		
+	}
+	
 	public String getcID() {
 		return cID;
 	}
