@@ -46,8 +46,8 @@ public class CookingServletDS extends HttpServlet {
 			
 		request.setCharacterEncoding("UTF-8");
 		String cName = request.getParameter("cName");
-		String sqlString = "SELECT ID,PNAME,PRICE,BRAND,QTY "+
-				"From MALLCOOKING Where PNAME like "+ "'%"+ cName +"%'";
+		String sqlString = "SELECT PRODUCT_ID,PRODUCT_BRAND,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_STACK,PEOPLE "+
+				"From SHOPPINGDATA Where PRODUCT_NAME like "+ "'%"+ cName +"%'";
 		
 		System.out.println(sqlString);
 		
@@ -67,18 +67,21 @@ public class CookingServletDS extends HttpServlet {
     	
     	out.println("<table border=1 width=100%>");
         out.println("<tr><th width=25%>Product ID</th>" +
-                    "<th width=75%>Product Name</th>"+
-                    "<th width=75%>Product Price</th>"+
-                    "<th width=75%>Product Brand</th>"+
-                    "<th width=75%>Product Qty</th></tr>");
+                    "<th width=75%>PRODUCT_BRAND</th>"+
+                    "<th width=100%>PRODUCT_NAME</th>"+
+                    "<th width=75%>PRODUCT_PRICE</th>"+
+                    "<th width=75%>PRODUCT_STACK</th>"+
+                    "<th width=75%>PEOPLE</th>"
+                    + "<th width=75%>  </th></tr>");
 	    	
 	    for(int count = 0; ;count++) {
 	        	if (rs.next()) {
 	        		
 	        		out.println("<tr><td>"+ rs.getString(1) + "</td><td>" +
-	                        rs.getString(2) +"</td><td>" + rs.getInt(3) + "</td><td>"+
-	        				 rs.getString(4) + "</td><td>"+
-	                 		 rs.getInt(5) + "</td></tr>");
+	                        rs.getString(2) +"</td><td>" + rs.getString(3) + "</td><td>"+
+	        				 rs.getInt(4) + "</td><td>"+
+	                 		 rs.getInt(5) + "</td><td>"+
+	    	                 		 rs.getInt(6)+"</td><td><form method=GET action=./Mall.html><input type=\"submit\" name=\"cart\" value=\"加入購物車\"></td></tr>");
 	        	}
 	        	else
 	        	{

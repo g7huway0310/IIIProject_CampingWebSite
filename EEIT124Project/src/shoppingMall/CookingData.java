@@ -22,7 +22,7 @@ public class CookingData {
 			try (Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xepdb1", "project2",
 					"project2");) {
 				connection.setAutoCommit(false);
-				File file = new File("C:\\JAVA\\JavaWorkSpace\\project2\\cooking.csv");
+				File file = new File("C:\\eclipse\\JavaWorkspace\\shoppingMall.csv");
 				try (FileInputStream fi = new FileInputStream(file);
 						BufferedInputStream bf = new BufferedInputStream(fi);
 						InputStreamReader isr = new InputStreamReader(bf, "MS950");
@@ -39,15 +39,16 @@ public class CookingData {
 						}
 						
 						PreparedStatement pstmt = connection.prepareStatement(
-								"insert into MALLCOOKING(ID,PNAME,PRICE,BRAND,SPEC,WARNING,QTY) values(?,?,?,?,?,?,?)");
+								"insert into SHOPPINGDATA(PRODUCT_ID,PRODUCT_BRAND,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_SPEC,PRODUCT_STACK,PRODUCT_WARNING,PEOPLE) values(?,?,?,?,?,?,?,?)");
 
 						pstmt.setString(1, array[0]);
 						pstmt.setString(2, array[1]);
-						pstmt.setInt(3, Integer.parseInt(array[2]));
-						pstmt.setString(4, array[3]);
+						pstmt.setString(3, array[2]);
+						pstmt.setInt(4, Integer.parseInt(array[3]));
 						pstmt.setString(5, array[4]);
-						pstmt.setString(6, array[5]);
-						pstmt.setInt(7, Integer.parseInt(array[6]));
+						pstmt.setInt(6, Integer.parseInt(array[5]));
+						pstmt.setString(7, array[6]);
+						pstmt.setInt(8, Integer.parseInt(array[7]));
 
 						pstmt.addBatch();
 						pstmt.clearParameters();
