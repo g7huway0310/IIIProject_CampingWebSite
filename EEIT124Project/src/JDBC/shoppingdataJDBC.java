@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import com.sun.xml.internal.fastinfoset.util.StringArray;
 
