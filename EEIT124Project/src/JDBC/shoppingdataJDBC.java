@@ -13,8 +13,6 @@ import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
-import com.sun.xml.internal.fastinfoset.util.StringArray;
-
 public class shoppingdataJDBC {
 	
    private DataSource dataSource;
