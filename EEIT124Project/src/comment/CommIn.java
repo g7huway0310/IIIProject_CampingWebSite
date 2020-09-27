@@ -10,7 +10,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+
+
 
 
 
@@ -41,7 +43,7 @@ public class CommIn implements CommDataDao {
 				Statement stmt = connection.createStatement();
 				ResultSet rs = stmt.executeQuery("select * from RANKING");) {
 			while (rs.next()) {
-				// §â¨C¤@µ§¸ê®ÆÂà´«¦¨ª«¥ó
+				// æŠŠæ¯ä¸€ç­†è³‡æ–™è½‰æ›æˆç‰©ä»¶
 				CommData commdata = new CommData();
 				int Campgroundid = rs.getInt("Campgroundid");
 				commdata.setCampgroundid(Campgroundid);
@@ -74,9 +76,9 @@ public class CommIn implements CommDataDao {
 				pstmt.setString(4, data.getContent());
 				int i = pstmt.executeUpdate();
 				if (i >= 1) {
-					System.out.println("³Ğ«Ø¦¨¥\");
+					System.out.println("å‰µå»ºæˆåŠŸ");
 				} else {
-					System.out.println("³Ğ«Ø¥¢±Ñ");
+					System.out.println("å‰µå»ºå¤±æ•—");
 				}
 				pstmt.clearParameters();
 

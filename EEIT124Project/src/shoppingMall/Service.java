@@ -15,16 +15,7 @@ public class Service {
 		jdbcDB.SearchBrandItem("MP");//依照品牌顯示產品
 		
 		List<ShoppingProduct> typeofwhichProduct = jdbcDB.searchtype(1);//顯示類別
-		
-		
-
-		
-       
-        
-        
-        
-		
-		
+	
 		
 
 	}

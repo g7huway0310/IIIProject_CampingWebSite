@@ -10,7 +10,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+
+
 
 public class INUPDEQ implements DataDAO{
 	
@@ -43,7 +45,7 @@ public class INUPDEQ implements DataDAO{
 				Statement stmt = connection.createStatement();
 				ResultSet rs = stmt.executeQuery("select * from COUPON");) {
 			while (rs.next()) {
-				// §â¨C¤@µ§¸ê®ÆÂà´«¦¨ª«¥ó
+				// æŠŠæ¯ä¸€ç­†è³‡æ–™è½‰æ›æˆç‰©ä»¶
 				Data data = new Data();
 				int Memberid = rs.getInt("Memberid");
 				data.setMemberid (Memberid);
@@ -80,9 +82,9 @@ public class INUPDEQ implements DataDAO{
 				pstmt.setInt(4, data.getMemberid());
 				int i = pstmt.executeUpdate();
 				if (i >= 1) {
-					System.out.println("³Ğ«Ø¦¨¥\");
+					System.out.println("å‰µå»ºæˆåŠŸ");
 				} else {
-					System.out.println("³Ğ«Ø¥¢±Ñ");
+					System.out.println("å‰µå»ºå¤±æ•—");
 				}
 				pstmt.clearParameters();
 
@@ -108,9 +110,9 @@ public class INUPDEQ implements DataDAO{
 			
 			int i = pstmt.executeUpdate();
 			if (i >= 1) {
-				System.out.println("§ó·s¦¨¥\");
+				System.out.println("æ›´æ–°æˆåŠŸ");
 			} else {
-				System.out.println("§ó·s¥¢±Ñ");
+				System.out.println("æ›´æ–°å¤±æ•—");
 			}
 			pstmt.clearParameters();
 			
@@ -194,10 +196,10 @@ public class INUPDEQ implements DataDAO{
 			int i = pstmt2.executeUpdate();
 			if (i == 1) {
 				System.out.println("Couponnum: " + rs.getString("Couponnum") + " Coupontype:" + rs.getString("Coupontype") + 
-						"Expirationdate"+ rs.getString("Expirationdate") + " ¤w§R°£");
+						"Expirationdate"+ rs.getString("Expirationdate") + "å·²åˆªé™¤");
 				connection.commit();
 			} else {
-				System.out.println("§R°£¥¢±Ñ");
+				System.out.println("åˆªé™¤å¤±æ•—");
 				connection.rollback();
 			}
 
