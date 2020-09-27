@@ -3,9 +3,9 @@ package shoppingMall;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Cart {
+public class Cart{
 	
-	private Map<String,CartItem> ProductMap = new LinkedHashMap<>();
+	private Map<String, CartItem> ProductMap = new LinkedHashMap<>();
 	
 	private double price;
 	
@@ -19,9 +19,25 @@ public class Cart {
 			cartItem.setQuantity(1);
 			ProductMap.put(product.getpID(), cartItem);
 			}else {
-				
-		
+				cartItem.setQuantity(cartItem.getQuantity());		
 		}
 	}
-
+	        public double getPrice() {
+				
+				double totalPrice = 0;
+				for(Map.Entry<String, CartItem> me: ProductMap.entrySet()) {
+					
+					CartItem cartItem = me.getValue();
+					totalPrice = cartItem.getPrice();				
+				}
+	                 return totalPrice;
+	        }
+	        public Map<String, CartItem> getProductMap(){
+	        	return ProductMap;
+	        }
+	        
+	        public void setPrice(double price) {
+	        	this.price = price;
+	        }
+	
 }
