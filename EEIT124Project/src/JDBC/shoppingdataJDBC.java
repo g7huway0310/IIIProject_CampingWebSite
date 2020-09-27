@@ -37,9 +37,11 @@ public class shoppingdataJDBC {
    
    
    //依照品牌搜尋全部商品
-   public StringBuffer SearchBrandItem(String brand) {
+   public  List<ShoppingProduct> SearchBrandItem(String keyWord) {
 	   
    StringBuffer searchResult=new StringBuffer();
+   
+   List<ShoppingProduct> list=new ArrayList<ShoppingProduct>();
 		
    String sqlString="select * from shoppingdata where PRODUCT_BRAND like ?";	
    
@@ -48,22 +50,27 @@ public class shoppingdataJDBC {
 		PreparedStatement pstmt = connection.prepareStatement(sqlString);)
      
    {
-	 pstmt.setString(1,"%"+brand+"%");
+	 pstmt.setString(1,"%"+keyWord+"%");
 	 ResultSet rs = pstmt.executeQuery();
 	 
 	 
 	 
 	 while (rs.next()) {
-	      String name = rs.getString("PRODUCT_NAME");
+		  String name = rs.getString("PRODUCT_NAME");
+		  String id = rs.getString("PRODUCT_ID");
+	      String warring = rs.getString("PRODUCT_WARRING");
 	      String brands = rs.getString("PRODUCT_BRAND");
+	      String spec = rs.getString("PRODUCT_SPEC");
 	      int price = rs.getInt("PRODUCT_PRICE");
-	      String feature = rs.getString("PRODUCT_FEATURE");
 	      int stack = rs.getInt("PRODUCT_STACK");
 	      
-	      searchResult.append("商品品牌: "+brands+"\n"+
-	    		              "商品名稱: "+name+"\n"+	    		             
-	    		              "商品價格: "+String.valueOf(price)+"\n"+
-	    		              "商品庫存: "+feature+String.valueOf(stack)+"\n");
+	      
+	      ShoppingProduct product=new ShoppingProduct(id, brands, name, price, spec, stack, warring);
+//	      searchResult.append("商品品牌: "+brands+"\n"+
+//	    		              "商品名稱: "+name+"\n"+	    		             
+//	    		              "商品價格: "+String.valueOf(price)+"\n"+
+//	    		              "商品庫存: "+feature+String.valueOf(stack)+"\n");
+	      list.add(product);
 
 	 }
      System.out.println(searchResult);
@@ -74,10 +81,10 @@ public class shoppingdataJDBC {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-     return searchResult;
+     return list;
 	}
    
-   public  List<ShoppingProduct> searchtype(int selectWhich) {
+ public  List<ShoppingProduct> searchtype(int selectWhich) {
 	  
 	   
        String[] typeArray = {"bedding","carpet","furniture","ice","lamp","tableware","tool"}; 
@@ -100,7 +107,6 @@ public class shoppingdataJDBC {
 			String brand = rs.getString("PRODUCT_BRAND");
 			String name = rs.getString("PRODUCT_NAME");
 			int price = rs.getInt("PRODUCT_PRICE");
-			String feature = rs.getString("PRODUCT_FEATURE");
 			String spec = rs.getString("PRODUCT_SPEC");
 			int stack = rs.getInt("PRODUCT_STACK");
 			String warring = rs.getString("PRODUCT_WARRING");
@@ -111,7 +117,6 @@ public class shoppingdataJDBC {
 		    product.setProductPrice(price);
 		    product.setProductSpec(spec);
 		    product.setProductStack(stack);
-		    product.setProductType(typeArray[selectWhich]);
 		    product.setProductWarring(warring);
 		    product.setProductId(id);
 		    list.add(product);
@@ -140,18 +145,35 @@ public class shoppingdataJDBC {
 	return null;
 	
 }
-  public void updateData() {
-	  try (Connection conn = getDataSource().getConnection();
-	             PreparedStatement stmt = conn.prepareStatement("update emp set commission=?,hiredate=?,job=?,ename=?,salary=?,version=version+1 where empno=? and version=?")
-	        ) {
-
-  
-  
-  } catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-   
+  public int updateData(ShoppingProduct shoppingProduct,int updateAmount) {
+	  
+	  String productId = shoppingProduct.getProductId();
+	  int productStack = shoppingProduct.getProductStack();
+	  
+	  if (productStack<updateAmount) {
+		System.out.println("庫存不足");
+	  }else {
+		  try (Connection conn = getDataSource().getConnection();
+			       PreparedStatement stmt = conn.prepareStatement("update shoppingdata set product_stack=? where product_id=?")
+			        ) {
+		     productStack=productStack-updateAmount;	  
+		     stmt.setInt(1,productStack);
+		     stmt.setString(2, productId);
+		     int result = stmt.executeUpdate();
+	         if (result == 0) {
+	                throw new RuntimeException("update fail");
+	            }
+		  
+		  } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		   
+		
+	  }
+	return productStack;
+	 
    
    
    
