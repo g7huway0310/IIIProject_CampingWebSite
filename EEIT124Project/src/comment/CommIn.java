@@ -14,8 +14,6 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 
 
-
-
 public class CommIn implements CommDataDao {
 	private DataSource datasource;
 	
@@ -89,13 +87,6 @@ public class CommIn implements CommDataDao {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 }
