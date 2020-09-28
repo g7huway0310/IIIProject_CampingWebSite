@@ -36,8 +36,6 @@ public class INUPDEQ implements DataDAO{
 	
 	
 	
-	
-	
 	@Override
 	public List<Data> listData() {
 		List<Data> list = new ArrayList<>();
@@ -208,10 +206,6 @@ public class INUPDEQ implements DataDAO{
 		}
 
 	}
-
-
-
-
 
 
 }
