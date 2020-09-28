@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
 
-public class testfile {
+public class CampingInput{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -19,45 +19,48 @@ public class testfile {
 			InputStreamReader ips = new InputStreamReader(new FileInputStream(file), "BIG5");
 			BufferedReader bf = new BufferedReader(ips);
 
-			String jdbc_insert_sql = "INSERT INTO CAMPINF" + "(C_NUMBER,C_NAME,CITY,ADRESS,OPRICE,WPRICE,TENTNUM,ELEVATION,FEATURE,FACILITY,PET,SERVICE,PARKING) VALUES" 
-			+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String jdbc_insert_sql = "INSERT INTO CAMPINF" + "(ID,NAME,CITY,ADRESS,TEL,OPRICE,WPRICE,TENTNUM,ELEVATION,FEATURE,FACILITY,PET,SERVICE,PARKING) VALUES" 
+			+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(jdbc_insert_sql);
 
 			String lineText = null;
 			while ((lineText = bf.readLine()) != null) {
 				String[] data = lineText.split(",");
-				String nnumber = data[0];
-				String c_name = data[1];
+				String idd = data[0];
+				String name = data[1];
 				String city = data[2];
 				String adress = data[3];
-				String opprice = data[4];
-				String wpprice = data[5];
-				String ttentnum = data[6];
-				String elevation = data[7];
-				String feature = data[8];
-				String facility = data[9];
-				String pet = data[10];
-				String service = data[11];
-				String parking = data[12];				
+				String tel = data[4];
+				String opprice = data[5];
+				String wpprice = data[6];
+				String ttentnum = data[7];
+				String elevation = data[8];
+				String feature = data[9];
+				String facility = data[10];
+				String pet = data[11];
+				String service = data[12];
+				String parking = data[13];				
 				
-				int c_number = Integer.parseInt(nnumber);
+				int id = Integer.parseInt(idd);
 				int oprice = Integer.parseInt(opprice);
 				int wprice = Integer.parseInt(wpprice);
 				int tentnum = Integer.parseInt(ttentnum);
 				
-				pstmt.setInt(1, c_number);
-				pstmt.setString(2, c_name);
+				
+				pstmt.setInt(1, id);
+				pstmt.setString(2, name);
 				pstmt.setString(3, city);
-				pstmt.setString(4, adress);				
-				pstmt.setInt(5, oprice);
-				pstmt.setInt(6, wprice);
-				pstmt.setInt(7, tentnum);
-				pstmt.setString(8, elevation);	
-				pstmt.setString(9, feature);	
-				pstmt.setString(10, facility);	
-				pstmt.setString(11, pet);	
-				pstmt.setString(12, service);	
-				pstmt.setString(13, parking);	
+				pstmt.setString(4, adress);
+				pstmt.setString(5, tel);
+				pstmt.setInt(6, oprice);
+				pstmt.setInt(7, wprice);
+				pstmt.setInt(8, tentnum);
+				pstmt.setString(9, elevation);	
+				pstmt.setString(10, feature);	
+				pstmt.setString(11, facility);	
+				pstmt.setString(12, pet);	
+				pstmt.setString(13, service);	
+				pstmt.setString(14, parking);	
 				pstmt.addBatch();
 				
 				pstmt.executeBatch();
@@ -67,7 +70,7 @@ public class testfile {
 
 				
 				
-				System.out.println(c_number+" "+c_name+" "+city+" "+adress+" "+oprice+" "+wprice+" "+tentnum+" "+elevation
+				System.out.println(id+" "+name+" "+city+" "+adress+" "+tel+" "+oprice+" "+wprice+" "+tentnum+" "+elevation
 						+" "+feature+" "+facility+" "+pet+" "+service+" "+parking);
 				
 
